@@ -1,40 +1,42 @@
 #include <iostream>
-#include <chrono>
 #include <vector>
+#include <chrono>
+#include <random>
 
-std::pair<double, double> InsertionSort(int a[], int n)
+void selectionSort(std::vector<int> &a, unsigned long long &compCount)
 {
-    double compare = 0;
+    int n = a.size();
+    compCount = 0;
+
+    for (int i = 0; i < n - 1; ++i)
+    {
+        int min_idx = i;
+
+        for (int j = i + 1; j < n; ++j)
+        {
+            compCount++; 
+            if (a[j] < a[min_idx])
+            {
+                min_idx = j;
+            }
+        }
+        if (min_idx != i)
+        {
+            std::swap(a[i], a[min_idx]);
+        }
+    }
+}
+
+std::pair<long long, double> runSelectionSort(std::vector<int> data)
+{
+    unsigned long long comparisons = 0;
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    for (int i = 1; i < n; i++)
-    {
-        compare++;
-        int key = a[i];
-        int j = i - 1;
-
-        while (j >= 0)
-        {
-            compare++;
-
-            if (a[j] > key)
-            {
-                compare++;
-                a[j + 1] = a[j];
-                j--;
-            }
-            else
-                break;
-        }
-
-        a[j + 1] = key;
-    }
+    selectionSort(data, comparisons);
 
     auto end = std::chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
 
-    std::chrono::milliseconds duration =
-        std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-
-    return { compare, duration.count() };
+    return { comparisons, duration.count() };
 }
