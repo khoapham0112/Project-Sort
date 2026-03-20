@@ -4,6 +4,7 @@ using namespace std;
 
 int binarySearch(int a[], int item, int low, int high, double& compare)
 {
+    compare++;
     if (high <= low)
     {
         compare++;
@@ -32,6 +33,7 @@ std::pair<double, double> binaryInsertionSort(int a[], int n)
 
     for (i = 1; i < n; ++i)
     {
+        compare++;
         j = i - 1;
         selected = a[i];
 
@@ -39,11 +41,14 @@ std::pair<double, double> binaryInsertionSort(int a[], int n)
 
         while (j >= locate)
         {
+            compare++;
             a[j + 1] = a[j];
             j--;
         }
+        compare++;
         a[j + 1] = selected;
     }
+    compare++;
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
 

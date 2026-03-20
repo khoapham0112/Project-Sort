@@ -15,28 +15,36 @@ std::pair<double, double> ShakerSort(int a[], int n)
         compare++;
         for (i = Left; i < Right; i++)
         {
-            compare++;
-            if (a[i] > a[i + 1])
+            compare += 2;
+            if (arr[i] > arr[i + 1]) 
             {
-                compare++;
                 std::swap(a[i], a[i + 1]);
                 k = i;
             }
         }
-        Right = k;
-        for (i = Right; i > Left; i--)
+        compare += 2;
+        if (!is_swapped) 
         {
-            compare++;
-            if (a[i] < a[i - 1])
+            break;
+        }
+
+        is_swapped = false;
+        --end;
+
+        for (int i = end - 1; i >= start; --i) 
+        {
+            compare+=2;
+            if (arr[i] > arr[i + 1]) 
             {
-                compare++;
                 std::swap(a[i], a[i - 1]);
                 k = i;
             }
         }
-        Left = k;
+        compare++;
+        ++start;
     }
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::milliseconds duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    compare++;
+    auto endTime = std::chrono::high_resolution_clock::now();
+    std::chrono::milliseconds duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
     return { compare, duration.count() };
 }
