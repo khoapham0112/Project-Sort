@@ -6,11 +6,9 @@
 void flashSort(std::vector<int> &a, double &compCount)
 {
     int n = a.size();
-    if (n <= 1)
-    {
-        compCount++;
-        return;
-    }
+    compCount++;
+    if (n <= 1) return;
+
 
     compCount = 0;
     int max_idx = 0;
@@ -19,25 +17,18 @@ void flashSort(std::vector<int> &a, double &compCount)
     for (int i = 1; i < n; ++i)
     {
         compCount++; 
-        if (a[i] < min_val)
-        {
-            compCount++;
-            min_val = a[i];
-        }
+
+        compCount++;
+        if (a[i] < min_val) min_val = a[i];
 
         compCount++; 
-        if (a[i] > a[max_idx])
-        {
-            compCount++;
-            max_idx = i;
-        }
+        if (a[i] > a[max_idx]) max_idx = i;
+
     }
 
-    if (a[max_idx] == min_val)
-    {
-        compCount++;
-        return;
-    }
+    compCount++;
+    if (a[max_idx] == min_val) return;
+
 
     int m = 0.45 * n;
     std::vector<int> l(m, 0);
@@ -91,13 +82,16 @@ void flashSort(std::vector<int> &a, double &compCount)
         int hold = a[i];
         int j = i - 1;
 
+        compCount++;
         if (j >= 0)
             compCount++; 
+
         while (j >= 0 && a[j] > hold)
         {
             compCount++;
             a[j + 1] = a[j];
             j--;
+            compCount++;
             if (j >= 0)
                 compCount++; 
         }
