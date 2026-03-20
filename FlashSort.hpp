@@ -3,11 +3,14 @@
 #include <chrono>
 #include <random>
 
-void flashSort(std::vector<int> &a, unsigned long long &compCount)
+void flashSort(std::vector<int> &a, double &compCount)
 {
     int n = a.size();
     if (n <= 1)
+    {
+        compCount++;
         return;
+    }
 
     compCount = 0;
     int max_idx = 0;
@@ -18,18 +21,23 @@ void flashSort(std::vector<int> &a, unsigned long long &compCount)
         compCount++; 
         if (a[i] < min_val)
         {
+            compCount++;
             min_val = a[i];
         }
 
         compCount++; 
         if (a[i] > a[max_idx])
         {
+            compCount++;
             max_idx = i;
         }
     }
 
     if (a[max_idx] == min_val)
-        return; 
+    {
+        compCount++;
+        return;
+    }
 
     int m = 0.45 * n;
     std::vector<int> l(m, 0);
@@ -37,12 +45,14 @@ void flashSort(std::vector<int> &a, unsigned long long &compCount)
 
     for (int i = 0; i < n; ++i)
     {
+        compCount++;
         int k = c1 * (a[i] - min_val);
         l[k]++;
     }
 
     for (int i = 1; i < m; ++i)
     {
+        compCount++;
         l[i] += l[i - 1];
     }
 
@@ -55,14 +65,17 @@ void flashSort(std::vector<int> &a, unsigned long long &compCount)
 
     while (nmove < n - 1)
     {
+        compCount++;
         while (j > l[k] - 1)
         {
+            compCount++;
             j++;
             k = c1 * (a[j] - min_val);
         }
         flash = a[j];
         while (j != l[k])
         {
+            compCount++;
             k = c1 * (flash - min_val);
             int hold = a[l[k] - 1];
             a[l[k] - 1] = flash;
@@ -74,6 +87,7 @@ void flashSort(std::vector<int> &a, unsigned long long &compCount)
 
     for (int i = 1; i < n; ++i)
     {
+        compCount++;
         int hold = a[i];
         int j = i - 1;
 
@@ -81,6 +95,7 @@ void flashSort(std::vector<int> &a, unsigned long long &compCount)
             compCount++; 
         while (j >= 0 && a[j] > hold)
         {
+            compCount++;
             a[j + 1] = a[j];
             j--;
             if (j >= 0)
@@ -90,9 +105,9 @@ void flashSort(std::vector<int> &a, unsigned long long &compCount)
     }
 }
 
-std::pair<long long, double> runFlashSort(std::vector<int> data)
+std::pair<double, double> runFlashSort(std::vector<int> data)
 {
-    unsigned long long comparisons = 0;
+    double comparisons = 0;
 
     auto start = std::chrono::high_resolution_clock::now();
 
