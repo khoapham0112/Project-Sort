@@ -2,7 +2,7 @@
 #include <chrono>
 using namespace std;
 
-int binarySearch(int a[], int item, int low, int high, int& compare)
+int binarySearch(int a[], int item, int low, int high, double& compare)
 {
     if (high <= low)
     {
@@ -28,7 +28,7 @@ std::pair<double, double> binaryInsertionSort(int a[], int n)
 {
     auto start = chrono::high_resolution_clock::now();
     int i, locate, j, selected;
-    int compare = 0;
+    double compare = 0;
 
     for (i = 1; i < n; ++i)
     {

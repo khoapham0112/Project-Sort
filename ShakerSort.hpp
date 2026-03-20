@@ -4,7 +4,7 @@
 
 std::pair<double, double> ShakerSort(int a[], int n)
 {
-    int compare = 0;
+    double compare = 0;
     auto start = std::chrono::high_resolution_clock::now();
     int Left = 0;
     int Right = n - 1;

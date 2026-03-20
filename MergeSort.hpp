@@ -70,7 +70,7 @@ void mergeSortRecursive(int a[], int left, int right, int& compare)
 std::pair<double, double> mergeSort(int a[], int n)
 {
     auto start = chrono::high_resolution_clock::now();
-    int compare = 0;
+    double compare = 0;
 
     mergeSortRecursive(a, 0, n - 1, compare);
 

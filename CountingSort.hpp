@@ -5,7 +5,7 @@ using namespace std;
 
 std::pair<double, double> countingSort(int a[], int n){
     auto start = chrono::high_resolution_clock::now();
-    int compare = 0;
+    double compare = 0;
 
     int max_val = a[0];
     for (int i = 1; i < n; i++){
