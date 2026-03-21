@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void merge(int a[], int left, int mid, int right, int& compare)
+void merge(int a[], int left, int mid, int right, double& compare)
 {
     int n1 = mid - left + 1;
     int n2 = right - mid;
@@ -12,17 +12,24 @@ void merge(int a[], int left, int mid, int right, int& compare)
     int* R = new int[n2];
 
     for (int i = 0; i < n1; i++)
+    {
+        compare++;
         L[i] = a[left + i];
+    }
+    compare++;
     for (int j = 0; j < n2; j++)
+    {
+        compare++;
         R[j] = a[mid + 1 + j];
-
+    }
+    compare++;
     int i = 0; 
     int j = 0; 
     int k = left; 
 
     while (i < n1 && j < n2)
     {
-        compare++; 
+        compare+=3; 
         if (L[i] <= R[j])
         {
             a[k] = L[i];
@@ -35,29 +42,34 @@ void merge(int a[], int left, int mid, int right, int& compare)
         }
         k++;
     }
-
+    compare += 2;
     while (i < n1)
     {
+        compare++;
         a[k] = L[i];
         i++;
         k++;
     }
-
+    compare++;
     while (j < n2)
     {
+        compare++;
         a[k] = R[j];
         j++;
         k++;
     }
-
+    compare++;
     delete[] L;
     delete[] R;
 }
 
-void mergeSortRecursive(int a[], int left, int right, int& compare)
+void mergeSortRecursive(int a[], int left, int right, double& compare)
 {
     if (left >= right)
+    {
+        compare++;
         return;
+    }
 
     int mid = left + (right - left) / 2;
 

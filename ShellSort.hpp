@@ -8,23 +8,28 @@ std::pair<double, double> shellSort(int a[], int n){
     double compare = 0;
 
     for (int gap = n / 2; gap > 0; gap /= 2){
+        compare++;
         for (int i = gap; i < n; i++){
+            compare++;
             int temp = a[i];
             int j;
 
             for (j = i; j >= gap; j -= gap){
-                compare++; 
+                compare+=2; 
                 if (a[j - gap] > temp){
                     a[j] = a[j - gap];
                 }
                 else{
+                    compare--;
                     break;
                 }
             }
+            compare++;
             a[j] = temp;
         }
+        compare++;
     }
-
+    compare++;
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
 
