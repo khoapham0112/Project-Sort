@@ -41,7 +41,7 @@ std::pair<double, double> countingSort(int a[], int n){
     }
     compare++;
     auto end = chrono::high_resolution_clock::now();
-    auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
+    auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start);
 
-    return { compare, duration.count() };
+    return { compare, duration.count() / 1000000.0 };
 }
