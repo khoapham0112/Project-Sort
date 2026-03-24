@@ -39,7 +39,7 @@ std::pair<double, double> runSelectionSort(std::vector<int> data)
     selectionSort(data, comparisons);
 
     auto end = std::chrono::high_resolution_clock::now();
-    auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
+    auto duration = std::chrono::duration_cast<chrono::milliseconds>(end - start);
 
     return { comparisons, duration.count() };
 }

@@ -7,18 +7,7 @@
 #include <vector>
 
 #include "DataGenerator.hpp"
-#include "SelectionSort.hpp"
-#include "InsertionSort.hpp"
-#include "BinaryInsertionSort.hpp"
-#include "BubbleSort.hpp"
-#include "ShakerSort.hpp"
-#include "ShellSort.hpp"
-#include "HeapSort.hpp"
-#include "MergeSort.hpp"
-#include "QuickSort.hpp"
-#include "CountingSort.hpp"
-#include "RadixSort.hpp"
-#include "FlashSort.hpp"
+#include "../Algo/Algo.hpp"
 
 using namespace std;
 
@@ -34,6 +23,15 @@ bool isInteger(const std::string& s) {
     catch (const std::out_of_range& e) {
         return false;
     }
+}
+
+void outputFile(vector<int>& arr, string name)
+{
+    fstream fs(name, ios::out | ios::trunc);
+
+    for (int a : arr) fs << a << " ";
+
+    fs.close();
 }
 
 int main(int argc, char** argv)
@@ -129,7 +127,8 @@ int main(int argc, char** argv)
                     else if (order == "-rev") orderIdx = 2;
                     else if (order == "-nsorted") orderIdx = 3;
                     i = orderIdx;
-                }
+                    outputFile(arr[i], "input.txt");
+                } else outputFile(arr[i], "input_"+ to_string(i + 1) + ".txt");
 
                 cout << "Input order: " << strorder[orderIdx] << "\n";
                 cout << "-----------------------------------\n";
@@ -140,6 +139,8 @@ int main(int argc, char** argv)
                 double comp;
 
                 runAlgorithm(algo, a, time, comp);
+
+                if (range == 1) outputFile(a, "output.txt");
 
                 if (flag & 1) cout << "Running time: " << time << "ms\n";
                 if (flag & 2) cout << "Comparisions: " << comp << "\n";
@@ -177,6 +178,8 @@ int main(int argc, char** argv)
             double comp;
 
             runAlgorithm(algo, a, time, comp);
+
+            outputFile(a, "output.txt");
 
             if (flag & 1) cout << "Running time: " << time << "ms\n";
             if (flag & 2) cout << "Comparisions: " << comp << "\n";
@@ -216,6 +219,7 @@ int main(int argc, char** argv)
                 }
                 a2 = a1;
                 cout << "Input size: " << n << "\n";
+                outputFile(a1, "input.txt");
             }
             else {
                 cout << "Invalid input file!\n";

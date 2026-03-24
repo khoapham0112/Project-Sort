@@ -8,7 +8,7 @@ endif()
 
 project("Project-Sort" LANGUAGES CXX)
 
-add_executable(ProjectSort "Project-Sort.cpp")
+add_executable(ProjectSort "src/Project-Sort.cpp")
 
 target_compile_features(ProjectSort PUBLIC cxx_std_17)
 
